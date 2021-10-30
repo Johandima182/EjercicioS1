@@ -15,6 +15,30 @@ mongoose.connect('mongodb+srv://ProWeb:ProWebMintic@misionticciclo4.vei8m.mongod
 router.get('/', (req,res) => {
     res.send("Inicio de la Api Rest")
 });
+
+router.post('/candidatos', (req,res) => {
+    let nuevocandidato = new CandidatoSchema({
+        idCandidato : req.body.id,
+        tipoDocCandidato:  req.body.TipoDoc,
+        numDocCandidato :  req.body.NumDoc,
+        nombreCandidato:  req.body.Nombre,
+        apellidoCandidato :  req.body.Apellido,
+        direccionCandidato :  req.body.Direccion,
+        correoCandidato :  req.body.Correo,
+        telefonoCandidato : req.body.Telefono,
+        celularCandidato:  req.body.Celular,
+        sitioWebCandidato:  req.body.SitioWeb,
+        perfilcandidato:  req.body.Perfil
+    })
+
+    nuevocandidato.save(function(err,datos){
+        if(err){
+            console.log(err);
+        }
+        res.send("Candidato Guardado")
+    })
+})
+app.use(router);
 app.listen(3000, () => {
     console.log('servidor conectado a puerto 3000')
 });
