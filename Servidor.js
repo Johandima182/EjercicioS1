@@ -38,6 +38,16 @@ router.post('/candidatos', (req,res) => {
         res.send("Candidato Guardado")
     })
 })
+
+router.get('/candidatos', (req,res) => {
+    CandidatoSchema.find(function(err,datos){
+        if(err){
+            console.log("Error al buscar datos");
+        }else{
+            res.send(datos);
+        }
+    })
+})
 app.use(router);
 app.listen(3000, () => {
     console.log('servidor conectado a puerto 3000')
