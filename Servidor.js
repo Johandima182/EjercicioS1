@@ -45,13 +45,13 @@ router.get('/candidatos', (req, res) => {
         if (err) {
             console.log("Error al buscar datos");
         } else {
-            res.send(datos);
+            console.log(datos);
         }
     })
 })
 
 router.get('/candidatos/:id', (req,res) => {
-    CandidatoSchema.findById(req.params.id, function (err,datos){
+    CandidatoSchema.findOne({"_id" : req.params.id}, function (err,datos){
         if (err){
             console.log("El candidato no existe");
         }else{
@@ -61,7 +61,7 @@ router.get('/candidatos/:id', (req,res) => {
 })
 
 router.delete('/candidatos/:id' , (req,res) => {
-    CandidatoSchema.findByIdAndDelete(req.params.id , function(err, datos){
+    CandidatoSchema.findByIdAndDelete({_id : req.params.id} , function(err, datos){
         if(err){
             console.log("Error al eliminar el candidato");
         }else{
