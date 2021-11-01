@@ -61,7 +61,7 @@ router.get('/candidatos/:id', (req,res) => {
 })
 
 router.delete('/candidatos/:id' , (req,res) => {
-    CandidatoSchema.findByIdAndDelete({_id : req.params.id} , function(err, datos){
+    CandidatoSchema.deleteOne({_id : req.params.id} , function(err, datos){
         if(err){
             console.log("Error al eliminar el candidato");
         }else{
@@ -70,19 +70,25 @@ router.delete('/candidatos/:id' , (req,res) => {
     })
 })
 
-router.put('/candidatos/:id', (req, res) => {
-    const candidatoactualizado = {
-        nombreCandidato: req.body.Nombre, 
-        apellidoCandidato: req.body.Apellido 
+router.put('/candidatos:id', (req, res) => {
+    let candidatoModificado = {
+        tipoDocCandidato: req.body.TipoDoc,
+        numDocCandidato: req.body.NumDoc,
+        nombreCandidato: req.body.Nombre,
+        apellidoCandidato: req.body.Apellido,
+        direccionCandidato: req.body.Direccion,
+        correoCandidato: req.body.Correo,
+        telefonoCandidato: req.body.Telefono,
+        celularCandidato: req.body.Celular,
+        sitioWebCandidato: req.body.SitioWeb,
+        perfilcandidato: req.body.Perfil
     }
 
-    CandidatoSchema.findByIdAndUpdate(req.params.id , candidatoactualizado, function(err, data) {
-        if (err) {
-            console.log("Hay un error al actualizar");
-        } else {
-            res.send("El candidato a sido actualizado");
-        }
-    })
+
+
+    CandidatoSchema.updateOne({_id:req.params.id} ,  function() {
+        res.send(candidatoModificado);
+    });
 })
 app.use(router);
 app.listen(3000, () => {
