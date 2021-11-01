@@ -38,7 +38,7 @@ router.post('/candidatos', (req, res) => {
         }
         res.send("Candidato Guardado")
     })
-});
+})
 
 router.get('/candidatos', (req, res) => {
     CandidatoSchema.find(function (err, datos) {
@@ -48,7 +48,7 @@ router.get('/candidatos', (req, res) => {
             res.send(datos);
         }
     })
-});
+})
 
 router.get('/candidatos/:id', (req,res) => {
     CandidatoSchema.findById(req.params.id, function (err,datos){
@@ -58,7 +58,7 @@ router.get('/candidatos/:id', (req,res) => {
             console.log(datos);
         }
     })
-});
+})
 
 router.delete('/candidatos/:id' , (req,res) => {
     CandidatoSchema.findByIdAndDelete(req.params.id , function(err, datos){
@@ -67,23 +67,23 @@ router.delete('/candidatos/:id' , (req,res) => {
         }else{
             console.log("Candidato eliminado");
         }
-    });
-});
+    })
+})
 
 router.put('/candidatos/:id', (req, res) => {
     const candidatoactualizado = {
         nombreCandidato: req.body.Nombre, 
         apellidoCandidato: req.body.Apellido 
-    };
+    }
 
-    CandidatoSchema.findByIdAndUpdate({_id: req.params.id }, candidatoactualizado, function(err, data) {
+    CandidatoSchema.findByIdAndUpdate(req.params.id , candidatoactualizado, function(err, data) {
         if (err) {
             console.log("Hay un error al actualizar");
         } else {
             res.send("El candidato a sido actualizado");
         }
-    });
-});
+    })
+})
 app.use(router);
 app.listen(3000, () => {
     console.log('servidor conectado a puerto 3000')
