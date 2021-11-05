@@ -70,7 +70,7 @@ router.delete('/candidatos/:id' , (req,res) => {
     })
 })
 
-router.put('/candidatos', (req, res) => {
+router.put('/candidatos:id', (req, res) => {
     let candidatoModificado = {
         tipoDocCandidato: req.body.TipoDoc,
         numDocCandidato: req.body.NumDoc,
@@ -83,7 +83,7 @@ router.put('/candidatos', (req, res) => {
         sitioWebCandidato: req.body.SitioWeb,
         perfilcandidato: req.body.Perfil
     }
-    CandidatoSchema.updateOne({_id:req.params.id} ,  function() {
+    CandidatoSchema.updateOne({"_id":req.params.id} ,function() {
         res.send(candidatoModificado);
     });
 })
